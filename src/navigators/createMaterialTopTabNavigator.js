@@ -14,6 +14,7 @@ import ResourceSavingScene from '../views/ResourceSavingScene';
 type Props = InjectedProps & {
   animationEnabled?: boolean,
   swipeEnabled?: boolean,
+  resourceSavingEnabled?: boolean,
   tabBarPosition?: 'top' | 'bottom',
   tabBarComponent?: React.ComponentType<*>,
   tabBarOptions?: TabBarOptions,
@@ -25,6 +26,7 @@ class MaterialTabView extends React.PureComponent<Props> {
     initialLayout: Platform.select({
       android: { width: 1, height: 0 },
     }),
+    resourceSavingEnabled: true
   };
 
   _getLabel = ({ route, tintColor, focused }) => {
@@ -103,10 +105,11 @@ class MaterialTabView extends React.PureComponent<Props> {
       renderScene,
       animationEnabled,
       swipeEnabled,
+      resourceSavingEnabled,
       descriptors,
     } = this.props;
 
-    if (animationEnabled === false && swipeEnabled === false) {
+    if (resourceSavingEnabled && (animationEnabled === false && swipeEnabled === false)) {
       const { navigation } = descriptors[route.key];
 
       return (
